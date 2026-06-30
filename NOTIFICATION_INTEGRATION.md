@@ -92,7 +92,7 @@ import Link from 'next/link'
 const NotificationBell = () => {
   const [unreadCount, setUnreadCount] = useState(0)
   const [notifications, setNotifications] = useState([])
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.moviemart.org/v1/api'
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/v1/api'
 
   useEffect(() => {
     fetchUnreadCount()
@@ -264,7 +264,7 @@ const NotificationsPage = () => {
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.moviemart.org/v1/api'
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/v1/api'
 
   useEffect(() => {
     fetchNotifications()
@@ -406,7 +406,7 @@ export default NotificationsPage
 
 All API calls use the following base URL:
 ```
-https://api.moviemart.org/v1/api (development)
+http://localhost:8080/v1/api (development)
 ```
 
 Set in environment variable: `NEXT_PUBLIC_API_URL`

@@ -40,7 +40,7 @@ interface HomeBannerResponse {
 export const homeBannerApi = createApi({
   reducerPath: 'homeBannerApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.moviemart.org/v1/api',
+    baseUrl: 'http://localhost:8080/v1/api',
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as IRootState).auth.token
       if (token) {

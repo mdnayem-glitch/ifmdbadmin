@@ -22,7 +22,7 @@ const ChannelSubscribeButton: React.FC<ChannelSubscribeButtonProps> = ({
   const [isLoading, setIsLoading] = useState(false)
   const [isCheckingStatus, setIsCheckingStatus] = useState(true)
 
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.moviemart.org/v1/api'
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/v1/api'
 
   // Get auth token
   const getAuthToken = () => {
