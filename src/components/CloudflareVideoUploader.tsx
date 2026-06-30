@@ -14,7 +14,7 @@ interface CloudflareVideoUploaderProps {
   maxDurationSeconds?: number
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/v1/api'
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
 const CloudflareVideoUploader: React.FC<CloudflareVideoUploaderProps> = ({
   onUploadComplete,

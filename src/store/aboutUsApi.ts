@@ -17,7 +17,7 @@ interface AboutUsResponse {
 export const aboutUsApi = createApi({
   reducerPath: 'aboutUsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8080/v1/api',
+    baseUrl: process.env.NEXT_PUBLIC_API_URL,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as IRootState).auth?.token
       if (token) {
