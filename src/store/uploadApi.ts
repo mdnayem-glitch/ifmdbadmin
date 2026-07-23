@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import type { RootState as IRootState } from '@/store'
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { baseQueryWithAuth } from '@/store/baseQueryWithAuth'
 
 interface UploadSingleResponse {
   success: boolean
@@ -16,14 +16,7 @@ interface UploadSingleResponse {
 
 export const uploadApi = createApi({
   reducerPath: 'uploadApi',
-  baseQuery: fetchBaseQuery({
-        baseUrl: process.env.NEXT_PUBLIC_API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as IRootState).auth?.token
-      if (token) headers.set('Authorization', `Bearer ${token}`)
-      return headers
-    },
-  }),
+  baseQuery: baseQueryWithAuth,
   endpoints: (builder) => ({
     uploadSingle: builder.mutation<string, File>({
       query: (file) => {

@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RootState as IRootState } from '@/store'
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { baseQueryWithAuth } from '@/store/baseQueryWithAuth'
 
 // Individual seat info
 interface BookingSet {
@@ -59,16 +59,7 @@ interface MoviesBookingsResponse {
 
 export const moviesBookingsApi = createApi({
   reducerPath: 'moviesBookingsApi',
-  baseQuery: fetchBaseQuery({
-        baseUrl: process.env.NEXT_PUBLIC_API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as IRootState).auth.token
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`)
-      }
-      return headers
-    },
-  }),
+  baseQuery: baseQueryWithAuth,
   tagTypes: ['moviesBookings'],
   endpoints: (builder) => ({
     getBookings: builder.query<IMoviesBookings[], void>({

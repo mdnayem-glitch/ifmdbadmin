@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RootState as IRootState } from '@/store'
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { baseQueryWithAuth } from '@/store/baseQueryWithAuth'
 
 export interface IEventCategory {
   _id: string
@@ -28,16 +28,7 @@ interface EventCategoryResponse {
 
 export const eventCategoryApi = createApi({
   reducerPath: 'eventCategoryApi',
-  baseQuery: fetchBaseQuery({
-        baseUrl: process.env.NEXT_PUBLIC_API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as IRootState).auth?.token
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`)
-      }
-      return headers
-    },
-  }),
+  baseQuery: baseQueryWithAuth,
   tagTypes: ['EventCategory'],
   endpoints: (builder) => ({
     // Get all event categories

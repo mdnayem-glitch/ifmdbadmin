@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RootState as IRootState } from '@/store'
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { baseQueryWithAuth } from '@/store/baseQueryWithAuth'
 
 export interface IAboutUs {
   _id: string
@@ -16,16 +16,7 @@ interface AboutUsResponse {
 
 export const aboutUsApi = createApi({
   reducerPath: 'aboutUsApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as IRootState).auth?.token
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`)
-      }
-      return headers
-    },
-  }),
+  baseQuery: baseQueryWithAuth,
   tagTypes: ['aboutUs'],
   endpoints: (builder) => ({
     getAboutUs: builder.query<IAboutUs, void>({

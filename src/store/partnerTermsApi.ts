@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RootState as IRootState } from '@/store'
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { baseQueryWithAuth } from '@/store/baseQueryWithAuth'
 
 export interface IPartnerTerms {
   _id: string
@@ -16,16 +16,7 @@ interface PartnerTermsResponse {
 
 export const partnerTermsApi = createApi({
   reducerPath: 'partnerTermsApi',
-  baseQuery: fetchBaseQuery({
-        baseUrl: process.env.NEXT_PUBLIC_API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as IRootState).auth?.token
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`)
-      }
-      return headers
-    },
-  }),
+  baseQuery: baseQueryWithAuth,
   tagTypes: ['partnerTerms'],
   endpoints: (builder) => ({
     getPartnerTerms: builder.query<IPartnerTerms, void>({

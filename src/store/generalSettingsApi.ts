@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RootState as IRootState } from '@/store'
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { baseQueryWithAuth } from '@/store/baseQueryWithAuth'
 
 // ---------- Interfaces ----------
 export interface IGeneralSettings {
@@ -27,16 +27,7 @@ interface GeneralSettingsResponse {
 // ---------- API Slice ----------
 export const generalSettingsApi = createApi({
   reducerPath: 'generalSettingsApi',
-  baseQuery: fetchBaseQuery({
-        baseUrl: process.env.NEXT_PUBLIC_API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as IRootState).auth?.token
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`)
-      }
-      return headers
-    },
-  }),
+  baseQuery: baseQueryWithAuth,
   tagTypes: ['generalSettings'],
   endpoints: (builder) => ({
     getGeneralSettings: builder.query<IGeneralSettings, void>({

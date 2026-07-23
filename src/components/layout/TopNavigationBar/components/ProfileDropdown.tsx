@@ -1,17 +1,25 @@
 'use client'
 
-
 import IconifyIcon from '@/components/wrappers/IconifyIcon'
 import Image from 'next/image'
-import Link from 'next/link'
 import defaultLogo from '@/assets/images/logo.png'
 import { Dropdown, DropdownHeader, DropdownItem, DropdownMenu, DropdownToggle } from 'react-bootstrap'
 import { useGetGeneralSettingsQuery } from '@/store/generalSettingsApi'
+import { useAppDispatch } from '@/hooks/useAppDispatch'
+import { logout } from '@/store/authSlice'
+import { useRouter } from 'next/navigation'
 
 const ProfileDropdown = () => {
+  const dispatch = useAppDispatch()
+  const router = useRouter()
   const { data: generalSettings } = useGetGeneralSettingsQuery()
   
   const logoUrl = generalSettings?.logo || defaultLogo
+
+  const handleLogout = () => {
+    dispatch(logout())
+    router.push('/auth/sign-in')
+  }
 
   return (
     <Dropdown className="topbar-item">
@@ -33,7 +41,7 @@ const ProfileDropdown = () => {
         </DropdownHeader>
 
         <div className="dropdown-divider my-1" />
-        <DropdownItem as={Link} className=" text-danger" href="/auth/sign-in">
+        <DropdownItem className="text-danger" onClick={handleLogout}>
           <IconifyIcon icon="bx:log-out" className="fs-18 align-middle me-1" />
           <span className="align-middle">Logout</span>
         </DropdownItem>

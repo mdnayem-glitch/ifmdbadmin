@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RootState as IRootState } from '@/store'
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { baseQueryWithAuth } from '@/store/baseQueryWithAuth'
 
 export interface IEventParticipationType {
   _id: string
@@ -25,16 +25,7 @@ interface ApiResponse<T> {
 
 export const eventParticipationTypeApi = createApi({
   reducerPath: 'eventParticipationTypeApi',
-  baseQuery: fetchBaseQuery({
-        baseUrl: process.env.NEXT_PUBLIC_API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as IRootState).auth?.token
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`)
-      }
-      return headers
-    },
-  }),
+  baseQuery: baseQueryWithAuth,
   tagTypes: ['EventParticipationType'],
   endpoints: (builder) => ({
     getParticipationTypes: builder.query<{ data: IEventParticipationType[]; meta: any }, { page?: number; limit?: number; search?: string; isActive?: boolean } | void>({

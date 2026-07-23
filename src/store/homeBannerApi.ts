@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RootState as IRootState } from '@/store'
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { baseQueryWithAuth } from '@/store/baseQueryWithAuth'
 
 export type BannerType = 'home' | 'film_mart' | 'events' | 'watch_movies'
 export type BannerPlatform = 'web' | 'mobile' | 'both'
@@ -39,16 +39,7 @@ interface HomeBannerResponse {
 
 export const homeBannerApi = createApi({
   reducerPath: 'homeBannerApi',
-  baseQuery: fetchBaseQuery({
-        baseUrl: process.env.NEXT_PUBLIC_API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as IRootState).auth.token
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`)
-      }
-      return headers
-    },
-  }),
+  baseQuery: baseQueryWithAuth,
   tagTypes: ['homeBanner'],
   endpoints: (builder) => ({
     getHomeBanner: builder.query<IHomeBanner[], void>({
