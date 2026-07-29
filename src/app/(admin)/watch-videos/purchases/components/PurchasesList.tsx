@@ -97,7 +97,7 @@ const PurchasesList = () => {
                 <th>Payment Status</th>
                 <th>Purchase Type</th>
                 <th>Date</th>
-                <th style={{ width: '100px' }}>Actions</th>
+                {/* <th style={{ width: '100px' }}>Actions</th> */}
               </tr>
             </thead>
             <tbody>
@@ -143,7 +143,7 @@ const PurchasesList = () => {
                     <td>
                       <small>{formatDate(purchase.createdAt)}</small>
                     </td>
-                    <td>
+                    {/* <td>
                       <div className="d-flex gap-1">
                         <Button size="sm" variant="outline-info" title="View Details">
                           <FaEye />
@@ -152,7 +152,7 @@ const PurchasesList = () => {
                           <FaDownload />
                         </Button>
                       </div>
-                    </td>
+                    </td> */}
                   </tr>
                 ))
               )}
