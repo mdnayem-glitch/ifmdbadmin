@@ -31,6 +31,12 @@ export interface LoginResponse {
   data: UserData
 }
 
+// One-time ticket handed over by the mobile app to sign a vendor in without
+// re-entering credentials. Redeems to the same payload as a password login.
+export interface SsoExchangeRequest {
+  ticket: string
+}
+
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithAuth,
@@ -45,7 +51,17 @@ export const apiSlice = createApi({
         },
       }),
     }),
+    ssoExchange: builder.mutation<LoginResponse, SsoExchangeRequest>({
+      query: (body) => ({
+        url: 'auth/sso-exchange',
+        method: 'POST',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
   }),
 })
 
-export const { useLoginMutation } = apiSlice
+export const { useLoginMutation, useSsoExchangeMutation } = apiSlice

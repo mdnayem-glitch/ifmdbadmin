@@ -23,6 +23,9 @@ const PUBLIC_AUTH_PATHS = [
   'auth/forgot-password',
   'auth/reset-password',
   'auth/verify-otp',
+  // Ticket handoff from the mobile app. A 401 here means a stale/used ticket,
+  // which the /auth/sso page reports itself instead of bouncing to sign-in.
+  'auth/sso-exchange',
 ]
 
 function isPublicAuthRequest(args: string | FetchArgs): boolean {
